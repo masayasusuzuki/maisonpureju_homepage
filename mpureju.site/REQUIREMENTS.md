@@ -36,6 +36,7 @@
 | 7 | **faqs**（よくある質問） | サイト表示用FAQ（ピラーページ・FAQページ） | question, answer, category（mouth/eye/nose/lift/skin/general/price/booking）, sort_order |
 | 8 | **setcourses**（セットコース） | 悩み別の施術組み合わせ提案 | title, tagline, concern, category, treatments[]（relation）, is_same_day, before_photo, after_photo, is_popular |
 | 9 | **staff**（スタッフ） | `/doctor/` ページのスタッフ紹介 + Team Slideの写真 | name, role（例：形成外科専門医・看護師等）, photo, profile, action_photos[]（施術中の様子）, sort_order |
+| 10 | **media**（SNSメディア） | トップページのMedia セクション。InstagramリールとYouTube動画のサムネイル + リンクを管理 | platform（`instagram` / `youtube`）, title（説明文・YouTube用）, thumbnail（MicroCMSImage）, url（投稿URL）, published_at |
 
 > **料金の管理方針：** `treatments` の `price_options[]` が単一ソース。施術詳細ページと `/price/` 一覧ページの両方がこのデータを参照するため、更新箇所は1か所で済む。
 >

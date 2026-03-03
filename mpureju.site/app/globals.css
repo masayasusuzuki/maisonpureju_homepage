@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Brand colors - Maison PUREJU */
+  --color-brand-dark: #1a1408;
+  --color-brand-brown: #3d2b1a;
+  --color-brand-gold: #c9a96e;
+  --color-brand-cream: #f5f0e8;
+  --color-brand-white: #fdfcfa;
+
+  /* Footer dark background */
+  --color-footer-bg: #1e1510;
+
+  /* Text */
+  --color-text-primary: #1a1408;
+  --color-text-secondary: #5c4a35;
+  --color-text-light: #f5f0e8;
+
+  /* Font families */
+  --font-sans: var(--font-noto-sans);
+  --font-serif: var(--font-noto-serif);
+  --font-en: var(--font-cormorant);
+}
+
+body {
+  background: var(--color-brand-white);
+  color: var(--color-text-primary);
+  font-family: var(--font-noto-sans), "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* English decorative font utility */
+.font-en {
+  font-family: var(--font-cormorant), "Times New Roman", serif;
+}
+
+/* Hero text fade-in */
+@keyframes hero-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-hero-fade {
+  opacity: 0;
+  animation: hero-fade-in 0.9s ease-out forwards;
+}
+
+/* Hero zoom-out animation */
+@keyframes hero-zoom-out {
+  from { transform: scale(1.05); }
+  to   { transform: scale(1); }
+}
+
+.animate-hero-zoom {
+  animation: hero-zoom-out 5s ease-out forwards;
+}
+
+/* Section base */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding: 0 2rem;
+  }
+}
