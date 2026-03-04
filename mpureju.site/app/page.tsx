@@ -8,6 +8,11 @@ export const metadata: Metadata = {
 
 import { MediaSectionPlaceholder } from "@/components/sections/MediaSection";
 import { ParallaxImage } from "@/components/ui/ParallaxImage";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { TeamMarquee } from "@/components/sections/TeamMarquee";
+import { TreatmentTabs } from "@/components/sections/TreatmentTabs";
+import { FaceMenu } from "@/components/sections/FaceMenu";
+import { ScrollFadeIn } from "@/components/ui/ScrollFadeIn";
 
 // TODO: Replace MediaSectionPlaceholder with MediaSection once microCMS is connected
 // import { MediaSection } from "@/components/sections/MediaSection";
@@ -83,81 +88,57 @@ export default function TopPage() {
       <div className="relative z-10">
 
       {/* Section 2: Campaign Banner */}
-      <section className="py-6 bg-white">
+      {/* TODO: Phase 2 で microCMS campaigns から取得に切り替え */}
+      <section className="py-10 bg-white">
         <div className="section-container">
-          <div className="h-32 md:h-48 bg-[var(--color-brand-cream)] flex items-center justify-center">
-            <p className="text-[var(--color-text-secondary)] text-sm">
-              キャンペーンバナー（microCMS campaigns から取得予定）
-            </p>
+          {(() => {
+            const month = new Intl.DateTimeFormat("ja-JP", { timeZone: "Asia/Tokyo", month: "numeric" }).format(new Date());
+            return (
+              <SectionHeading en="Campaign" ja={`${month}のキャンペーン`} className="mb-8" />
+            );
+          })()}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { src: "/campaign/3月_samune01.png", alt: "キャンペーン 1" },
+              { src: "/campaign/3月_samune02.png", alt: "キャンペーン 2" },
+            ].map((banner, i) => (
+              <ScrollFadeIn key={banner.src} delay={i * 0.1}>
+                <div className="aspect-video overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={banner.src}
+                    alt={banner.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </ScrollFadeIn>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Section 3: Face Menu - お悩みから探す */}
       <section className="py-16 md:py-24 bg-[var(--color-brand-white)]">
+        <div className="section-container mb-10">
+          <SectionHeading number="01" en="Find Your Solution" ja="お悩みから探す" className="mb-12" />
+        </div>
         <div className="section-container">
-          <div className="text-center mb-12">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Find Your Solution
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)]">
-              お悩みから探す
-            </h2>
-          </div>
-          <div className="h-80 bg-[var(--color-brand-cream)] flex items-center justify-center">
-            <p className="text-[var(--color-text-secondary)] text-sm">
-              フェイスメニュー（SVGインタラクティブUI実装予定）
-            </p>
-          </div>
+          <FaceMenu />
         </div>
       </section>
 
       {/* Section 4: 施術名から探す */}
       <section className="py-16 md:py-24 bg-[var(--color-brand-cream)]">
         <div className="section-container">
-          <div className="text-center mb-12">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Treatment Menu
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)]">
-              施術名から探す
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {(
-              [
-                ["口元", "/mouth"],
-                ["目元", "/eye"],
-                ["鼻", "/nose"],
-                ["リフトアップ", "/lift"],
-                ["美容皮膚科", "/skin"],
-              ] as const
-            ).map(([cat, href]) => (
-              <a
-                key={cat}
-                href={href}
-                className="block p-6 bg-white text-center hover:shadow-md transition-shadow group"
-              >
-                <p className="text-[var(--color-text-primary)] font-medium group-hover:text-[var(--color-brand-gold)] transition-colors">
-                  {cat}
-                </p>
-              </a>
-            ))}
-          </div>
+          <SectionHeading number="02" en="Treatment Menu" ja="施術名から探す" className="mb-12" />
+          <TreatmentTabs />
         </div>
       </section>
 
       {/* Section 5: 症例実績 */}
       <section className="py-16 md:py-24 bg-white">
         <div className="section-container">
-          <div className="text-center mb-12">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Case Results
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)]">
-              症例実績
-            </h2>
-          </div>
+          <SectionHeading number="03" en="Case Results" ja="症例実績" className="mb-12" />
           <div className="h-64 bg-[var(--color-brand-cream)] flex items-center justify-center">
             <p className="text-[var(--color-text-secondary)] text-sm">
               症例写真（microCMS cases から取得予定）
@@ -174,21 +155,33 @@ export default function TopPage() {
         </div>
       </section>
 
-      {/* Section 6: Media */}
+      {/* Section 6: Credentials */}
       <section className="py-16 md:py-24 bg-[var(--color-brand-cream)]">
         <div className="section-container">
-          <div className="text-center mb-12">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Media
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)]">
-              メディア掲載
-            </h2>
-          </div>
-          <div className="h-32 bg-white flex items-center justify-center">
-            <p className="text-[var(--color-text-secondary)] text-sm">
-              メディア実績（doctor スキーマから取得予定）
-            </p>
+          <SectionHeading number="04" en="Credentials" ja="実績・掲載歴" className="mb-12" />
+          {/* TODO: microCMS doctor スキーマから取得予定 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { tag: "メディア掲載", title: "〇〇雑誌に掲載されました", date: "2025.12" },
+              { tag: "学会発表",    title: "第〇〇回 日本美容外科学会にて発表", date: "2025.09" },
+              { tag: "取材・出演",  title: "〇〇メディアにて院長インタビュー", date: "2025.06" },
+            ].map((item) => (
+              <div key={item.title} className="bg-white p-6 flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs tracking-wider text-[var(--color-brand-gold)]">{item.tag}</span>
+                  <span className="text-xs text-[var(--color-text-secondary)]">{item.date}</span>
+                </div>
+                <p className="font-serif text-sm leading-relaxed text-[var(--color-text-primary)] flex-1">
+                  {item.title}
+                </p>
+                <a
+                  href="#"
+                  className="self-start text-xs tracking-widest text-[var(--color-text-secondary)] border-b border-current pb-0.5 hover:text-[var(--color-brand-gold)] transition-colors"
+                >
+                  DETAIL →
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -202,14 +195,7 @@ export default function TopPage() {
       {/* Section 8: Value - 選ばれる理由 */}
       <section className="py-16 md:py-24 bg-white">
         <div className="section-container">
-          <div className="text-center mb-12">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Why Choose Us
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)]">
-              選ばれる理由
-            </h2>
-          </div>
+          <SectionHeading number="05" en="Why Choose Us" ja="選ばれる理由" className="mb-12" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { title: "形成外科専門医", desc: "高い技術と豊富な知識を持つ専門医が担当" },
@@ -232,30 +218,69 @@ export default function TopPage() {
       </section>
 
       {/* Section 9: Doctor Message */}
-      <section className="py-16 md:py-24 bg-[var(--color-brand-cream)]">
+      <section className="py-16 md:py-24 bg-[var(--color-brand-cream)] overflow-hidden">
         <div className="section-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="h-80 bg-[var(--color-brand-brown)] flex items-center justify-center">
-              <p className="text-white/50 text-sm">院長写真</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+
+            {/* 左: 院長写真 1:1 + 右上斜めクリップ */}
+            <div
+              className="aspect-square relative"
+              style={{ clipPath: "polygon(0 0, calc(100% - 3.5rem) 0, 100% 3.5rem, 100% 100%, 0 100%)" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/staff/hirose.jpg"
+                alt="医院長 廣瀬 雅史"
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
             </div>
+
+            {/* 右: セクションタイトル + 本文 */}
             <div>
-              <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-4">
-                Message from Doctor
+
+              {/* セクションタイトル（横書き） */}
+              <p aria-hidden="true" className="font-en text-6xl md:text-7xl leading-none tracking-tight text-[var(--color-brand-dark)]/[0.08] select-none mb-6">
+                Message
               </p>
-              <h2 className="text-2xl font-light text-[var(--color-brand-dark)] mb-6">
-                院長からのメッセージ
-              </h2>
-              <div className="h-32 bg-[var(--color-brand-cream)]/50 flex items-center justify-center">
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  メッセージ（microCMS doctor から取得予定）
-                </p>
+
+              {/* 医院長情報 */}
+              <div className="mb-8">
+                <p className="text-xs tracking-widest text-[var(--color-brand-gold)] mb-3">医院長</p>
+                <p className="font-serif text-2xl md:text-3xl text-[var(--color-brand-dark)]">廣瀬 雅史</p>
+                <p className="font-en text-sm tracking-wider text-[var(--color-text-secondary)] mt-1">Masashi Hirose</p>
               </div>
-              <a
-                href="/doctor"
-                className="inline-block mt-6 text-sm text-[var(--color-brand-gold)] border-b border-[var(--color-brand-gold)] pb-0.5 hover:opacity-70 transition-opacity"
-              >
-                院長プロフィールを見る
-              </a>
+
+              {/* タイトル */}
+              <p className="font-serif text-lg md:text-xl leading-relaxed text-[var(--color-brand-dark)] mb-8">
+                本質を極めた、<br />あなただけの美の追求。
+              </p>
+
+              {/* 本文 */}
+              <div className="space-y-5 font-serif text-sm leading-[2.4] text-[var(--color-text-primary)]">
+                <p>私は、美容医療を単なる施術ではなく、患者様一人ひとりの人生を豊かにするものだと考えています。</p>
+                <p>そのため、学生時代から「最高の美容外科医になる」と決意。</p>
+                <p>安全で質の高い手術を提供するために、美容外科の基礎である形成外科専門医の道を選択し、技術と知識を徹底的に習得しました。</p>
+                <p>確固たる技術で、あなたの「変わりたい」を支えます。</p>
+              </div>
+
+              {/* 資格 + リンク */}
+              <div className="mt-10 pt-6 border-t border-[var(--color-brand-brown)]/20 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+                <ul className="space-y-1">
+                  {["形成外科専門医", "日本美容外科学会（JSAS）", "奈良県立医科大学 卒業"].map((item) => (
+                    <li key={item} className="text-xs text-[var(--color-text-secondary)] flex items-start gap-2">
+                      <span className="text-[var(--color-brand-gold)] mt-0.5">—</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/doctor"
+                  className="inline-block text-xs tracking-widest text-[var(--color-text-secondary)] border-b border-current pb-0.5 hover:text-[var(--color-brand-gold)] transition-colors shrink-0"
+                >
+                  PROFILE →
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
@@ -263,44 +288,25 @@ export default function TopPage() {
 
       {/* Section 10: Team Slide */}
       <section className="py-16 md:py-24 bg-white overflow-hidden">
-        <div className="section-container mb-10">
-          <div className="text-center">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Our Team
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)] mb-4">
-              Introduction of our Team
-            </h2>
-            <p className="text-sm text-[var(--color-text-secondary)] max-w-md mx-auto">
+        <div className="section-container mb-24">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <SectionHeading number="07" en="Our Team" ja="Introduction of our Team" />
+            <p className="text-sm text-[var(--color-text-secondary)] max-w-xs">
               豊富な経験を持つ専門医・スタッフが、あなたの理想に向き合います。
             </p>
           </div>
         </div>
-        <div className="flex gap-4 overflow-hidden">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 w-48 h-64 bg-[var(--color-brand-cream)]"
-            />
-          ))}
-        </div>
+        <TeamMarquee />
       </section>
 
       {/* Section 11: News */}
       <section className="py-16 md:py-24 bg-[var(--color-brand-cream)]">
         <div className="section-container">
           <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-                News
-              </p>
-              <h2 className="text-2xl font-light text-[var(--color-brand-dark)]">
-                お知らせ
-              </h2>
-            </div>
+            <SectionHeading number="08" en="News" ja="お知らせ" />
             <a
               href="/news"
-              className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-brand-gold)] transition-colors"
+              className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-brand-gold)] transition-colors shrink-0"
             >
               一覧を見る →
             </a>
@@ -332,62 +338,62 @@ export default function TopPage() {
       {/* Section 14: Access */}
       <section className="py-16 md:py-24 bg-white">
         <div className="section-container">
-          <div className="text-center mb-12">
-            <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-2">
-              Access
-            </p>
-            <h2 className="text-2xl md:text-3xl font-light text-[var(--color-brand-dark)]">
-              アクセス
-            </h2>
-          </div>
+          <SectionHeading number="09" en="Access" ja="アクセス" className="mb-12" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="h-64 bg-[var(--color-brand-cream)] flex items-center justify-center">
-              <p className="text-[var(--color-text-secondary)] text-sm">Googleマップ埋め込み</p>
+            {/* Google Maps 埋め込み */}
+            <div className="h-72 md:h-full min-h-64">
+              <iframe
+                src="https://maps.google.com/maps?q=35.671645,139.76263&z=16&output=embed&hl=ja"
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: "280px" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Maison PUREJU アクセスマップ"
+              />
             </div>
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
                 <p className="text-xs text-[var(--color-brand-gold)] tracking-wider mb-1">ADDRESS</p>
-                <p className="text-sm text-[var(--color-text-primary)]">〒104-0061 東京都中央区銀座○-○-○</p>
+                <p className="text-sm text-[var(--color-text-primary)] leading-relaxed">
+                  〒104-0061 東京都中央区銀座５丁目３−１３<br />
+                  Ginza SS 85ビル 4F
+                </p>
+                <a
+                  href="https://www.google.com/maps?ll=35.671645,139.76263&z=16&t=m&hl=ja&gl=JP&mapclient=embed&cid=11387186794925088261"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[var(--color-brand-gold)] underline underline-offset-2 hover:opacity-70 transition-opacity mt-1 inline-block"
+                >
+                  Google Maps で開く
+                </a>
               </div>
               <div>
                 <p className="text-xs text-[var(--color-brand-gold)] tracking-wider mb-1">ACCESS</p>
-                <p className="text-sm text-[var(--color-text-primary)]">東京メトロ銀座線「銀座」駅 徒歩○分</p>
+                <p className="text-sm text-[var(--color-text-primary)] leading-relaxed">
+                  東京メトロ銀座駅 徒歩1分<br />
+                  JR有楽町駅 徒歩5分
+                </p>
               </div>
               <div>
                 <p className="text-xs text-[var(--color-brand-gold)] tracking-wider mb-1">HOURS</p>
-                <p className="text-sm text-[var(--color-text-primary)]">10:00 〜 19:00</p>
+                <p className="text-sm text-[var(--color-text-primary)] leading-relaxed">
+                  10:00 〜 19:00<br />
+                  <span className="text-[var(--color-text-secondary)]">※休診日：月曜、不定休</span>
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-[var(--color-brand-gold)] tracking-wider mb-1">TEL</p>
+                <a href="tel:0332891222" className="text-sm text-[var(--color-text-primary)] hover:text-[var(--color-brand-gold)] transition-colors">
+                  03-3289-1222
+                </a>
+              </div>
+              <div>
+                <p className="text-xs text-[var(--color-brand-gold)] tracking-wider mb-1">診療内容</p>
+                <p className="text-sm text-[var(--color-text-primary)]">美容外科、美容皮膚科、形成外科、皮膚科</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 15: Reserve CTA */}
-      <section className="py-16 md:py-24 bg-[var(--color-brand-dark)]">
-        <div className="section-container text-center">
-          <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-4">
-            Reservation
-          </p>
-          <h2 className="text-2xl md:text-3xl font-light text-white mb-8">
-            まずはカウンセリングから
-          </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="https://lin.ee/maisonpureju"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-10 py-4 bg-[#06C755] text-white font-medium tracking-wider hover:opacity-90 transition-opacity"
-            >
-              LINE相談
-            </a>
-            <a
-              href="https://mpureju.com/reservation"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-10 py-4 bg-[var(--color-brand-gold)] text-white font-medium tracking-wider hover:opacity-90 transition-opacity"
-            >
-              Web予約
-            </a>
           </div>
         </div>
       </section>

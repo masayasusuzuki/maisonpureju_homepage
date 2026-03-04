@@ -181,14 +181,14 @@ export function Header() {
                 LINE予約
               </a>
               <a
-                href="tel:0312345678"
-                className={`px-4 py-2 text-sm font-medium border transition-colors ${
+                href="tel:0332891222"
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
                   isTransparent
-                    ? "border-white/60 text-white hover:bg-white/10"
-                    : "border-[var(--color-brand-dark)] text-[var(--color-brand-dark)] hover:bg-[var(--color-brand-dark)] hover:text-white"
+                    ? "text-white hover:opacity-70"
+                    : "text-[var(--color-brand-dark)] hover:text-[var(--color-brand-gold)]"
                 }`}
               >
-                電話予約
+                03-3289-1222
               </a>
             </div>
           </nav>

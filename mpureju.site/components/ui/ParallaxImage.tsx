@@ -15,8 +15,6 @@ export function ParallaxImage({ src, alt }: ParallaxImageProps) {
     offset: ["start end", "end start"],
   });
 
-  // スクロール進行に合わせて画像を上下に移動（-15% → +15%）
-  // ページより遅く動くことで「ねっとり」パララックス感が出る
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (

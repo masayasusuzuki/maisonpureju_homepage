@@ -34,7 +34,7 @@ export function MobileBottomNav() {
 
         {/* 電話 */}
         <a
-          href="tel:0312345678"
+          href="tel:0332891222"
           className="flex flex-col items-center justify-center gap-1 text-white hover:bg-white/5 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

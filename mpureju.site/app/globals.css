@@ -59,15 +59,24 @@ html {
   animation: hero-zoom-out 5s ease-out forwards;
 }
 
-/* Section base */
-.section-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+/* Marquee infinite scroll */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-@media (min-width: 768px) {
+/* Section base */
+@layer components {
   .section-container {
-    padding: 0 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-container {
+      padding: 0 2rem;
+    }
   }
 }
