@@ -13,6 +13,7 @@ import { TeamMarquee } from "@/components/sections/TeamMarquee";
 import { TreatmentTabs } from "@/components/sections/TreatmentTabs";
 import { FaceMenu } from "@/components/sections/FaceMenu";
 import { ScrollFadeIn } from "@/components/ui/ScrollFadeIn";
+import { CaseCarousel } from "@/components/sections/CaseCarousel";
 
 // TODO: Replace MediaSectionPlaceholder with MediaSection once microCMS is connected
 // import { MediaSection } from "@/components/sections/MediaSection";
@@ -136,50 +137,64 @@ export default function TopPage() {
       </section>
 
       {/* Section 5: 症例実績 */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="section-container">
-          <SectionHeading number="03" en="Case Results" ja="症例実績" className="mb-12" />
-          <div className="h-64 bg-[var(--color-brand-cream)] flex items-center justify-center">
-            <p className="text-[var(--color-text-secondary)] text-sm">
-              症例写真（microCMS cases から取得予定）
-            </p>
-          </div>
-          <div className="text-center mt-8">
-            <a
-              href="/case"
-              className="inline-block border border-[var(--color-brand-dark)] px-8 py-3 text-sm tracking-wider text-[var(--color-brand-dark)] hover:bg-[var(--color-brand-dark)] hover:text-white transition-colors"
-            >
-              症例一覧を見る
-            </a>
-          </div>
+      <section className="py-16 md:py-24 bg-white overflow-hidden">
+        <div className="section-container mb-10">
+          <SectionHeading number="03" en="Case Results" ja="症例実績" />
+        </div>
+        <CaseCarousel />
+        <div className="text-center mt-10">
+          <a
+            href="/case"
+            className="inline-block border border-[var(--color-brand-dark)] px-8 py-3 text-sm tracking-wider text-[var(--color-brand-dark)] hover:bg-[var(--color-brand-dark)] hover:text-white transition-colors"
+          >
+            症例一覧を見る
+          </a>
         </div>
       </section>
 
       {/* Section 6: Credentials */}
+      {/* TODO: Phase 2 で microCMS media スキーマから取得に切り替え */}
       <section className="py-16 md:py-24 bg-[var(--color-brand-cream)]">
         <div className="section-container">
           <SectionHeading number="04" en="Credentials" ja="実績・掲載歴" className="mb-12" />
-          {/* TODO: microCMS doctor スキーマから取得予定 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { tag: "メディア掲載", title: "〇〇雑誌に掲載されました", date: "2025.12" },
-              { tag: "学会発表",    title: "第〇〇回 日本美容外科学会にて発表", date: "2025.09" },
-              { tag: "取材・出演",  title: "〇〇メディアにて院長インタビュー", date: "2025.06" },
+              {
+                image: "/works/works01.jpg",
+                title: "第6回美容医療コミュニティ講演",
+                desc: "ニードルRF新時代の幕開け — 最新MicroneedleRF治療の臨床最前線",
+              },
+              {
+                image: null,
+                title: "美容医療メディア「キレイレポ」独占取材掲載",
+                desc: "形成外科専門医 廣瀬雅史による口角挙上術の解説",
+              },
             ].map((item) => (
-              <div key={item.title} className="bg-white p-6 flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs tracking-wider text-[var(--color-brand-gold)]">{item.tag}</span>
-                  <span className="text-xs text-[var(--color-text-secondary)]">{item.date}</span>
+              <div key={item.title} className="bg-white overflow-hidden flex flex-col">
+                {/* サムネイル 16:9 */}
+                <div className="relative w-full aspect-video bg-[var(--color-brand-dark)]/5 shrink-0">
+                  {item.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-[var(--color-text-secondary)]/25 text-xs tracking-[0.25em]">PHOTO</span>
+                    </div>
+                  )}
                 </div>
-                <p className="font-serif text-sm leading-relaxed text-[var(--color-text-primary)] flex-1">
-                  {item.title}
-                </p>
-                <a
-                  href="#"
-                  className="self-start text-xs tracking-widest text-[var(--color-text-secondary)] border-b border-current pb-0.5 hover:text-[var(--color-brand-gold)] transition-colors"
-                >
-                  DETAIL →
-                </a>
+                {/* テキスト */}
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <p className="font-serif text-sm leading-relaxed text-[var(--color-brand-dark)]">
+                    {item.title}
+                  </p>
+                  <p className="text-xs text-[var(--color-text-secondary)] font-light leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -195,24 +210,67 @@ export default function TopPage() {
       {/* Section 8: Value - 選ばれる理由 */}
       <section className="py-16 md:py-24 bg-white">
         <div className="section-container">
-          <SectionHeading number="05" en="Why Choose Us" ja="選ばれる理由" className="mb-12" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <SectionHeading number="05" en="Why Choose Us" ja="選ばれる理由" className="mb-14" />
+
+          <div className="divide-y divide-[var(--color-brand-brown)]/10">
             {[
-              { title: "形成外科専門医", desc: "高い技術と豊富な知識を持つ専門医が担当" },
-              { title: "完全個室", desc: "プライバシーに配慮した完全個室の診療環境" },
-              { title: "銀座", desc: "アクセス便利な銀座の一等地に位置するクリニック" },
-              { title: "こだわりの技術", desc: "一人ひとりに合わせたオーダーメイドの施術" },
-            ].map((item) => (
-              <div key={item.title} className="text-center p-6">
-                <div className="w-12 h-12 border border-[var(--color-brand-gold)] mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-[var(--color-brand-dark)] mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
+              {
+                title: "形成外科専門医",
+                desc: "美容外科の基礎である形成外科の専門医資格を持つ院長が、すべての施術を担当します。確かな技術と豊富な知識で、安全で質の高い施術をご提供します。",
+              },
+              {
+                title: "完全個室",
+                desc: "カウンセリングから施術まで、プライバシーに配慮した完全個室の環境をご用意しています。周囲を気にせず、安心してご相談いただけます。",
+              },
+              {
+                title: "銀座アクセス",
+                desc: "銀座駅徒歩1分。お仕事帰りや休日のお買い物のついでにお越しいただけます。洗練された銀座の街に溶け込む、プライベートな空間です。",
+              },
+              {
+                title: "オーダーメイド施術",
+                desc: "画一的な施術ではなく、お一人おひとりの顔立ちや骨格に合わせた施術プランをご提案します。あなただけの「自然な美しさ」を追求します。",
+              },
+            ].map((item, i) => {
+              const flip = i % 2 === 1;
+              return (
+                <ScrollFadeIn key={item.title}>
+                  <div className={`flex flex-col ${flip ? "md:flex-row-reverse" : "md:flex-row"} gap-0`}>
+
+                    {/* 写真 */}
+                    <div className="relative w-full md:w-5/12 aspect-[4/3] shrink-0 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/choose/choose0${i + 1}.jpg`}
+                        alt={item.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* テキスト */}
+                    <div className={`flex-1 flex flex-col justify-center py-10 md:py-14 ${flip ? "md:pr-12 lg:pr-16 md:pl-0" : "md:pl-12 lg:pl-16 md:pr-0"}`}>
+                      {/* デコレーション数字 */}
+                      <p
+                        className="font-en text-8xl md:text-9xl leading-none text-[var(--color-brand-gold)] select-none mb-1"
+                        style={{ opacity: 0.1 }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </p>
+                      {/* 短いゴールドライン */}
+                      <div className="w-8 h-px bg-[var(--color-brand-gold)] mb-6" />
+                      {/* タイトル */}
+                      <h3 className="font-serif text-2xl md:text-3xl text-[var(--color-brand-dark)] mb-5 leading-snug">
+                        {item.title}
+                      </h3>
+                      {/* 説明 */}
+                      <p className="text-sm text-[var(--color-text-secondary)] leading-[2.2] font-light max-w-sm">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                  </div>
+                </ScrollFadeIn>
+              );
+            })}
           </div>
         </div>
       </section>

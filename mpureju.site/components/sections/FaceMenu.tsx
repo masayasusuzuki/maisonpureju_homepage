@@ -18,8 +18,8 @@ const LEFT_PARTS = [
 ] as const;
 
 const RIGHT_PARTS = [
-  { name: "リフトアップ", href: "/lift/", btnY: 38, dotX: 61, dotY: 44 },
-  { name: "美容皮膚科",   href: "/skin/", btnY: 58, dotX: 63, dotY: 54 },
+  { name: "美容皮膚科",   href: "/skin/", btnY: 38, dotX: 61, dotY: 44 },
+  { name: "リフトアップ", href: "/lift/", btnY: 58, dotX: 63, dotY: 54 },
 ] as const;
 
 const L = 15;
@@ -119,8 +119,8 @@ export function FaceMenu() {
               transform: "translate(-50%, -50%)",
             }}
           >
-            <div className="flex items-center border-l-2 border-[var(--color-brand-gold)] pl-4 pr-6 py-2.5 bg-white/75 backdrop-blur-sm shadow-sm group-hover:bg-white/95 transition-all duration-200">
-              <span className="text-sm tracking-[0.15em] text-[var(--color-brand-dark)] font-light">
+            <div className="flex items-center rounded-full border-l-2 border-[var(--color-brand-gold)] pl-5 pr-7 py-3 bg-white/80 backdrop-blur-sm shadow-sm group-hover:bg-white/95 transition-all duration-200">
+              <span className="text-base tracking-[0.15em] text-[var(--color-brand-dark)] font-light">
                 {p.name}
               </span>
             </div>
@@ -139,8 +139,8 @@ export function FaceMenu() {
               transform: "translate(-50%, -50%)",
             }}
           >
-            <div className="flex items-center border-l-2 border-[var(--color-brand-gold)] pl-4 pr-6 py-2.5 bg-white/75 backdrop-blur-sm shadow-sm group-hover:bg-white/95 transition-all duration-200">
-              <span className="text-sm tracking-[0.15em] text-[var(--color-brand-dark)] font-light">
+            <div className="flex items-center rounded-full border-l-2 border-[var(--color-brand-gold)] pl-5 pr-7 py-3 bg-white/80 backdrop-blur-sm shadow-sm group-hover:bg-white/95 transition-all duration-200">
+              <span className="text-base tracking-[0.15em] text-[var(--color-brand-dark)] font-light">
                 {p.name}
               </span>
             </div>

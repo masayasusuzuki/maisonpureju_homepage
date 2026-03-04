@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ドキュメント更新ルール
+
+開発中に仕様変更・設計判断が生じた場合、実装と同時に以下のファイルを必ずアップデートすること。
+
+| ファイル | 更新すべき内容 |
+|----------|--------------|
+| `docs/REQUIREMENTS.md` | スキーマ設計・フェーズ計画・仕様の変更・設計判断の理由 |
+| `docs/diagrams/site-structure.html` | ページ構成・データ設計・導線の変更 |
+| `memory/MEMORY.md` | プロジェクト全体に影響する決定事項・重要な変更 |
+
+---
+
 ## Operator Rules (Must Follow)
 
 - **git コマンドは一切実行しない** — commit, push, add, reset 等すべてユーザーが行う
