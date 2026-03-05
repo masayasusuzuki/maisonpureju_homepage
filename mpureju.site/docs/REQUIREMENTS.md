@@ -46,6 +46,32 @@
 
 ---
 
+## 開発参照ドキュメント（コンテンツ整備用）
+
+施術名・料金データは microCMS 接続前の開発フェーズにおいて、以下のファイルで管理する。
+
+| ファイル | 内容 | 用途 |
+|---------|------|------|
+| `docs/treatment-menu.md` | 施術名・概要・リスク副作用一覧 | 現行WordPressより抽出。施術コンテンツ整備・microCMS投入の起点。 |
+| `docs/price-list.md` | 全施術・化粧品の料金一覧（税込） | WordPressコードエディタ出力から整理。microCMS `treatments.price_options[]` への投入データ。 |
+| `docs/codeediter` | WordPressコードエディタ出力（raw） | 現行サイトの PRICE ページ ブロック構造そのまま。参照・検証のみ。直接編集不可。 |
+
+**料金データの流れ:**
+
+```
+現行WordPress（ブロックエディタ）
+  ↓ 手動抽出
+docs/price-list.md（開発参照ドキュメント）
+  ↓ microCMS 投入時に参照
+microCMS treatments.price_options[]（本番単一ソース）
+  ↓ API取得
+/price/ ページ + 各施術詳細ページ（フロント表示）
+```
+
+> **注意:** `docs/price-list.md` はあくまで開発用の中間ドキュメント。microCMS 投入後は microCMS が正となる。料金変更は microCMS 側のみを更新すること。
+
+---
+
 ## 予約・問い合わせ導線
 
 ```

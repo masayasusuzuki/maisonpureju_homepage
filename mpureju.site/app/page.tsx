@@ -165,7 +165,7 @@ export default function TopPage() {
                 desc: "ニードルRF新時代の幕開け — 最新MicroneedleRF治療の臨床最前線",
               },
               {
-                image: null,
+                image: "/works/works02.jpg",
                 title: "美容医療メディア「キレイレポ」独占取材掲載",
                 desc: "形成外科専門医 廣瀬雅史による口角挙上術の解説",
               },

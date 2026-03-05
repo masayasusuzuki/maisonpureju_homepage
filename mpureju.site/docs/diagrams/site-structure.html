@@ -189,6 +189,7 @@
     .db-badge { font-size: 10px; padding: 1px 7px; border-radius: 4px; }
     .db-microcms { background: rgba(59,130,246,0.15); color: #93c5fd; }
     .db-supabase { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+    .db-local    { background: rgba(245,158,11,0.15);  color: #fbbf24; }
 
     /* ===== FLOW TAB ===== */
     .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -351,6 +352,13 @@
         <span class="db-badge db-supabase">Supabase</span>
       </div>
       <div class="data-grid" id="supabase-tables"></div>
+
+      <div class="group-label">
+        <span class="group-label-text">開発参照ドキュメント（3）</span>
+        <span class="group-label-line"></span>
+        <span class="db-badge db-local">Local Docs</span>
+      </div>
+      <div class="data-grid" id="ref-docs"></div>
     </div>
 
     <!-- 導線・設計 -->
@@ -557,6 +565,36 @@ const TABLES = [
       { name:"knowledge_id", type:"UUID FK", note:"→ chatbot_knowledge" },
       { name:"content", type:"text" },
       { name:"embedding", type:"vector(1536)", note:"pgvector" },
+    ]},
+];
+
+// =====================================================
+// REFERENCE DOCS
+// =====================================================
+const REF_DOCS = [
+  { file:"docs/treatment-menu.md", label:"施術メニュー一覧", icon:"📋",
+    note:"現行WordPressサイトより抽出。microCMS 投入の起点。",
+    details:[
+      "カテゴリ構成: 皮膚科 / 外科（目・鼻・口・糸・輪郭） / 点滴 / 内服薬",
+      "各施術の概要・リスク副作用・承認状況を記載",
+      "microCMS treatments スキーマ投入時の参照元",
+      "料金は price-list.md に分離（このファイルには記載しない）",
+    ]},
+  { file:"docs/price-list.md", label:"料金一覧", icon:"💴",
+    note:"WordPressコードエディタ出力より整理。microCMS 投入データ。",
+    details:[
+      "カテゴリ: 皮膚科 / 外科 / 点滴 / 内服薬 / 化粧品 / その他（麻酔・書類）",
+      "すべて税込総額。microCMS treatments.price_options[] と対応",
+      "price_options 構造: { name, option, price } の3列テーブル",
+      "⚠ microCMS 投入後は microCMS が正。このファイルは更新不要になる",
+    ]},
+  { file:"docs/codeediter", label:"WP コードエディタ出力（raw）", icon:"🗂",
+    note:"参照・検証のみ。直接編集不可。",
+    details:[
+      "現行サイト PRICE 固定ページのブロックエディタ全文（53.9KB）",
+      "SWELLテーマ + loos/tab ブロック構造（タブUI）",
+      "大カテゴリ: 皮膚科 / 外科 / 点滴 / 内服薬 / 化粧品 / その他",
+      "price-list.md の一次ソース。手動抽出完了済み",
     ]},
 ];
 
@@ -890,6 +928,26 @@ function renderData() {
     </div>
   `).join('');
   document.getElementById('supabase-tables').innerHTML = tableHTML;
+
+  // Reference Docs
+  const refHTML = REF_DOCS.map(d => `
+    <div class="data-card">
+      <div class="data-card-header">
+        <span class="icon">${d.icon}</span>
+        <div>
+          <div class="title" style="font-family:monospace;font-size:11px">${d.file}</div>
+          <div class="subtitle">${d.label}</div>
+          <div class="subtitle" style="color:#fbbf24;margin-top:2px">${d.note}</div>
+        </div>
+      </div>
+      <div class="data-card-body">
+        <ul class="section-list">
+          ${d.details.map(detail => `<li>${detail}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('ref-docs').innerHTML = refHTML;
 }
 
 // =====================================================
