@@ -27,8 +27,8 @@ export function PillarTemplate({ config }: { config: PillarConfig }) {
     <>
       {/* Hero */}
       <section
-        className="-mt-16 md:-mt-20 relative overflow-hidden"
-        style={{ height: "clamp(400px, 65vh, 700px)" }}
+        className="relative overflow-hidden"
+        style={{ height: "clamp(240px, 38vh, 420px)" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -37,58 +37,36 @@ export function PillarTemplate({ config }: { config: PillarConfig }) {
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
 
-        <div className="absolute inset-0 flex flex-col justify-end pb-12 md:pb-16">
-          <div className="section-container">
+
+        <div className="absolute inset-0 flex flex-col justify-end pb-10 md:pb-12">
+          <div style={{ paddingLeft: "max(1.5rem, calc((100vw - 1200px) / 2 + 2rem))" }}>
             {/* パンくず */}
-            <nav className="flex items-center gap-2 text-xs text-white/50 mb-8 tracking-wider">
-              <Link href="/" className="hover:text-white/80 transition-colors">HOME</Link>
+            <nav className="flex items-center gap-2 text-xs text-[var(--color-brand-dark)]/50 mb-8 tracking-wider">
+              <Link href="/" className="hover:text-[var(--color-brand-dark)] transition-colors">HOME</Link>
               <span>/</span>
-              <span className="text-white/80">{config.label}</span>
+              <span className="text-[var(--color-brand-dark)]/80">{config.label}</span>
             </nav>
 
-            <p className="font-en text-sm tracking-[0.3em] text-[var(--color-brand-gold)] mb-3">
-              {config.labelEn}
-            </p>
-            <h1 className="font-en text-5xl md:text-6xl lg:text-7xl tracking-widest text-white mb-5 leading-none">
+            <h1 className="font-en text-4xl md:text-5xl lg:text-6xl tracking-widest text-[var(--color-brand-dark)] mb-5 leading-none">
               {config.label}
             </h1>
-            <p className="font-serif text-base md:text-lg text-white/80 leading-relaxed max-w-md">
-              {config.tagline}
-            </p>
-
-            <div className="flex flex-wrap gap-3 mt-8">
-              <a
-                href="https://mpureju.com/reservation"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[var(--color-brand-gold)] text-white text-sm tracking-wider px-7 py-3 hover:opacity-90 transition-opacity"
-              >
-                無料カウンセリング予約
-              </a>
-              <a
-                href="https://lin.ee/maisonpureju"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block border border-white/60 text-white text-sm tracking-wider px-7 py-3 hover:bg-white/10 transition-colors"
-              >
-                LINEで相談する
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
       {/* お悩みから選ぶ */}
-      <section className="py-8 bg-[var(--color-brand-cream)]">
+      <section
+        className="py-8"
+        style={{ background: "linear-gradient(160deg, #f7f0e6 0%, #fdfcfa 100%)" }}
+      >
         <div className="section-container">
           <p className="text-xs tracking-[0.25em] text-[var(--color-brand-gold)] mb-4">CONCERNS</p>
           <div className="flex flex-wrap gap-2">
             {config.concerns.map((concern) => (
               <span
                 key={concern}
-                className="px-4 py-1.5 text-sm font-light text-[var(--color-text-secondary)] border border-[var(--color-brand-brown)]/20 bg-white rounded-full tracking-wide"
+                className="px-4 py-1.5 text-sm font-light text-[var(--color-text-secondary)] border border-[var(--color-brand-brown)]/20 bg-white/80 rounded-full tracking-wide"
               >
                 {concern}
               </span>
@@ -98,7 +76,10 @@ export function PillarTemplate({ config }: { config: PillarConfig }) {
       </section>
 
       {/* 施術メニュー */}
-      <section className="py-16 md:py-24 bg-white">
+      <section
+        className="py-16 md:py-24"
+        style={{ background: "linear-gradient(160deg, #fdfcfa 0%, #f5ede0 100%)" }}
+      >
         <div className="section-container">
           <SectionHeading en="Treatment Menu" ja="施術メニュー" className="mb-12" />
           <div className="divide-y divide-[var(--color-brand-brown)]/10">
@@ -137,7 +118,10 @@ export function PillarTemplate({ config }: { config: PillarConfig }) {
       </section>
 
       {/* 症例実績 */}
-      <section className="py-16 md:py-24 bg-[var(--color-brand-cream)] overflow-hidden">
+      <section
+        className="py-16 md:py-24 overflow-hidden"
+        style={{ background: "linear-gradient(160deg, #f7f0e6 0%, #fdfcfa 100%)" }}
+      >
         <div className="section-container mb-10">
           <SectionHeading en="Case Results" ja="症例実績" />
         </div>
@@ -153,7 +137,10 @@ export function PillarTemplate({ config }: { config: PillarConfig }) {
       </section>
 
       {/* よくある質問 */}
-      <section className="py-16 md:py-24 bg-white">
+      <section
+        className="py-16 md:py-24"
+        style={{ background: "linear-gradient(160deg, #fdfcfa 0%, #f5ede0 100%)" }}
+      >
         <div className="section-container">
           <SectionHeading en="FAQ" ja="よくある質問" className="mb-12" />
           <div className="max-w-3xl">
@@ -163,35 +150,41 @@ export function PillarTemplate({ config }: { config: PillarConfig }) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-[var(--color-brand-dark)]">
-        <div className="section-container text-center">
-          <p className="font-en text-xs tracking-[0.35em] text-[var(--color-brand-gold)]/70 mb-4">
+      <section className="py-16 md:py-20 bg-white border-t border-[var(--color-brand-gold)]/20">
+        <div className="section-container">
+          <p className="font-en text-xs tracking-[0.3em] text-[var(--color-brand-gold)] mb-4">
             CONSULTATION
           </p>
-          <h2 className="font-serif text-2xl md:text-3xl text-white mb-4 leading-relaxed">
-            まずは無料カウンセリングへ
+          <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-brand-dark)] mb-3 leading-relaxed">
+            ご予約・ご相談はこちら
           </h2>
-          <p className="text-sm text-white/60 font-light mb-10 leading-relaxed">
+          <p className="text-sm text-[var(--color-text-secondary)] mb-10 leading-relaxed">
             院長が丁寧にご相談をお伺いし、<br className="sm:hidden" />あなたに最適なプランをご提案いたします。
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
             <a
               href="https://mpureju.com/reservation"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[var(--color-brand-gold)] text-white text-sm tracking-wider px-10 py-4 hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center bg-[var(--color-brand-gold)] text-[var(--color-brand-dark)] px-10 py-4 text-sm tracking-widest font-medium hover:opacity-90 transition-opacity"
             >
-              無料カウンセリングを予約する
+              Web予約
             </a>
             <a
               href="https://lin.ee/maisonpureju"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block border border-white/30 text-white text-sm tracking-wider px-10 py-4 hover:border-white/60 hover:bg-white/5 transition-all"
+              className="inline-flex items-center justify-center border border-[var(--color-brand-dark)] text-[var(--color-brand-dark)] px-10 py-4 text-sm tracking-widest hover:bg-[var(--color-brand-dark)] hover:text-white transition-colors"
             >
-              LINEで気軽に相談する
+              LINE予約
             </a>
           </div>
+          <Link
+            href="/contact"
+            className="text-xs tracking-wider text-[var(--color-text-secondary)] underline underline-offset-4 hover:text-[var(--color-brand-gold)] transition-colors"
+          >
+            メールでのお問い合わせはこちら
+          </Link>
         </div>
       </section>
     </>

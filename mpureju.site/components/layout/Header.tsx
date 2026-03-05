@@ -64,6 +64,7 @@ const navCategories = [
 
 export function Header() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
@@ -170,26 +171,66 @@ export function Header() {
               院長紹介
             </Link>
 
-            {/* 予約ボタン群 */}
-            <div className="ml-3 flex items-center gap-2">
-              <a
-                href="https://lin.ee/maisonpureju"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-[#06C755] text-white text-sm font-medium hover:opacity-90 transition-opacity"
+            {/* 問い合わせ + 電話 */}
+            <div className="ml-2 flex items-center gap-3 border-l border-current/10 pl-3">
+              <Link
+                href="/contact"
+                className={`text-xs tracking-wider transition-colors duration-300 ${
+                  isTransparent
+                    ? "text-white/80 hover:text-white"
+                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-brand-gold)]"
+                }`}
               >
-                LINE予約
-              </a>
+                お問い合わせ
+              </Link>
               <a
                 href="tel:0332891222"
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                className={`text-xs tracking-wider transition-colors duration-300 ${
                   isTransparent
-                    ? "text-white hover:opacity-70"
-                    : "text-[var(--color-brand-dark)] hover:text-[var(--color-brand-gold)]"
+                    ? "text-white/80 hover:text-white"
+                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-brand-gold)]"
                 }`}
               >
                 03-3289-1222
               </a>
+            </div>
+
+            {/* 予約ドロップダウン */}
+            <div
+              className="ml-2 relative"
+              onMouseEnter={() => setBookingOpen(true)}
+              onMouseLeave={() => setBookingOpen(false)}
+            >
+              <button
+                className="flex items-center gap-1.5 px-5 py-2 bg-[var(--color-brand-gold)] text-[var(--color-brand-dark)] text-sm font-medium tracking-wider hover:opacity-90 transition-opacity"
+              >
+                予約
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {bookingOpen && (
+                <div className="absolute top-full right-0 mt-0 w-44 bg-white border border-[var(--color-brand-cream)] shadow-lg py-2">
+                  <a
+                    href="https://lin.ee/maisonpureju"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-brand-cream)] hover:text-[var(--color-brand-dark)] transition-colors"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-[#06C755] shrink-0" />
+                    LINE予約
+                  </a>
+                  <a
+                    href="https://mpureju.com/reservation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-brand-cream)] hover:text-[var(--color-brand-dark)] transition-colors"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-gold)] shrink-0" />
+                    Web予約
+                  </a>
+                </div>
+              )}
             </div>
           </nav>
 
@@ -253,6 +294,40 @@ export function Header() {
           >
             院長紹介
           </Link>
+          <Link
+            href="/contact"
+            className="block px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            お問い合わせ
+          </Link>
+          <a
+            href="https://lin.ee/maisonpureju"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#06C755]" />
+            LINE予約
+          </a>
+          <a
+            href="https://mpureju.com/reservation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span className="w-2 h-2 rounded-full bg-[var(--color-brand-gold)]" />
+            Web予約
+          </a>
+          <a
+            href="tel:0332891222"
+            className="block px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            03-3289-1222
+          </a>
         </div>
       )}
     </header>

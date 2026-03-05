@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 
 export type SearchRow = {
   section: string;
@@ -20,7 +21,8 @@ const CATEGORIES = [
 ];
 
 export function PriceNav({ allRows }: { allRows: SearchRow[] }) {
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const inputRef = useRef<HTMLInputElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 

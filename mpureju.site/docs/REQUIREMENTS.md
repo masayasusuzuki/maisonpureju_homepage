@@ -37,6 +37,7 @@
 | 8 | **setcourses**（セットコース） | 悩み別の施術組み合わせ提案 | title, tagline, concern, category, treatments[]（relation）, is_same_day, before_photo, after_photo, is_popular |
 | 9 | **staff**（スタッフ） | `/doctor/` ページのスタッフ紹介 + Team Slideの写真 | name, role（例：形成外科専門医・看護師等）, photo, profile, action_photos[]（施術中の様子）, sort_order |
 | 10 | **media**（SNSメディア） | トップページのMedia セクション。InstagramリールとYouTube動画のサムネイル + リンクを管理 | platform（`instagram` / `youtube`）, title（説明文・YouTube用）, thumbnail（MicroCMSImage）, url（投稿URL）, published_at |
+| 11 | **jobs**（求人情報） | `/recruit/` 一覧・詳細ページのコンテンツ管理。職種ごとに記事形式で管理 | title, slug, employment_type（正社員/パート/業務委託）, description（richtext）, requirements（応募条件・richtext）, conditions（待遇・勤務条件・richtext）, is_active（募集中フラグ）, published_at |
 
 > **料金の管理方針：** `treatments` の `price_options[]` が単一ソース。施術詳細ページと `/price/` 一覧ページの両方がこのデータを参照するため、更新箇所は1か所で済む。
 >
@@ -257,6 +258,8 @@ DeepSeek APIへ（システムプロンプト + コンテキスト + 質問）
   /column/faq/        よくある質問
 /news/                お知らせ
 /contact/             お問い合わせ（フォーム + LINE/Medicalforceへの誘導）
+/recruit/             採用情報一覧
+/recruit/[slug]/      求人詳細
 /about/               クリニック紹介・院長・アクセス統合
 /sitemap/             サイトマップ
 ```
@@ -391,9 +394,10 @@ DeepSeek APIへ（システムプロンプト + コンテキスト + 質問）
 
 ### Phase 2
 - [ ] 施術詳細ページ（`/treatment/[slug]/` 全施術）
-- [ ] 院長紹介（`/doctor/`）
+- [ ] 院長紹介（`/doctor/`）+ リクルートセクション
 - [ ] コラム一覧・記事（`/column/`）
 - [ ] クリニック紹介（`/about/`）
+- [ ] 採用情報（`/recruit/`・`/recruit/[slug]/`）microCMS jobs スキーマ
 
 ### Phase 3
 - [ ] 症例写真フィルター機能（`/case/`）
@@ -420,6 +424,7 @@ DeepSeek APIへ（システムプロンプト + コンテキスト + 質問）
 │  Access          │ 鼻を整えたい     │ プライバシーポリシー│
 │  Column          │ たるみ・リフト   │ 医療広告ガイドライン│
 │  Simulator       │ 肌トラブル       │ キャンセルポリシー │
+│  Recruit         │                  │                   │
 │                  │                  │ 特定商取引法に基づく│
 │                  │ 施術から探す     │ 表示              │
 │                  │ ─────────────    │                   │

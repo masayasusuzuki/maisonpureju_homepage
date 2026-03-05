@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { PillarTemplate, type PillarConfig } from "@/components/pillar/PillarTemplate";
 
 export const metadata: Metadata = {
-  title: "目元の美容外科",
+  title: "目・目元の整形｜Maison PUREJU 銀座の美容外科",
   description:
     "二重埋没・眼瞼下垂・脱脂・ハムラ法など目元の美容外科施術。形成外科専門医が丁寧にご対応いたします。",
 };
 
 const CONFIG: PillarConfig = {
   slug: "eye",
-  label: "目元",
+  label: "目・目元の整形",
   labelEn: "Eye",
   tagline: "目元の輝きが、印象を変える。\n繊細な技術で、理想の目元へ。",
-  heroImage: "/toppage/img_clinic-treatment02.jpg",
+  heroImage: "/pillarpage/eye_hero.jpg",
   concerns: [
     "一重まぶたが気になる",
     "目が小さく見える",

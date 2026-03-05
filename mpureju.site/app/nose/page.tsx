@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { PillarTemplate, type PillarConfig } from "@/components/pillar/PillarTemplate";
 
 export const metadata: Metadata = {
-  title: "鼻の美容外科",
+  title: "鼻の整形｜Maison PUREJU 銀座の美容外科",
   description:
     "プロテーゼ・鼻尖形成・鼻翼縮小・鼻中隔延長など鼻の美容外科施術。形成外科専門医が丁寧にご対応いたします。",
 };
 
 const CONFIG: PillarConfig = {
   slug: "nose",
-  label: "鼻",
+  label: "鼻の整形",
   labelEn: "Nose",
   tagline: "顔の中心が変わると、印象が変わる。\n理想の鼻筋を、自然に形成する。",
-  heroImage: "/toppage/img_clinic-treatment03.jpg",
+  heroImage: "/pillarpage/nose_hero.jpg",
   concerns: [
     "鼻が低い",
     "鼻先が丸い・大きい",

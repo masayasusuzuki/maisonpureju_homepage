@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 const CONFIG: PillarConfig = {
   slug: "lift",
-  label: "リフトアップ",
+  label: "糸の施術・リフトアップ",
   labelEn: "Lift & Contour",
   tagline: "時を重ねた輪郭に、若々しい引き締めを。\n確かな技術で、フェイスラインを取り戻す。",
-  heroImage: "/toppage/clinicimage02.jpg",
+  heroImage: "/pillarpage/lift_hero.jpg",
   concerns: [
     "頬のたるみが気になる",
     "フェイスラインが緩んできた",

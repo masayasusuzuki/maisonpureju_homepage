@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PriceSubTabs, type SubTab, type PriceRow } from "@/components/sections/PriceSubTabs";
 import { PriceNav, type SearchRow } from "@/components/sections/PriceNav";
@@ -687,7 +688,9 @@ export default function PricePage() {
       </section>
 
       {/* ===== スティッキーカテゴリナビ + 検索 ===== */}
-      <PriceNav allRows={ALL_ROWS} />
+      <Suspense fallback={null}>
+        <PriceNav allRows={ALL_ROWS} />
+      </Suspense>
 
       {/* ===== 皮膚科 ===== */}
       <section
@@ -807,13 +810,13 @@ export default function PricePage() {
             CONSULTATION
           </p>
           <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-brand-dark)] mb-3 leading-relaxed">
-            まずは無料カウンセリングへ
+            ご予約・ご相談はこちら
           </h2>
           <p className="text-sm text-[var(--color-text-secondary)] mb-10 leading-relaxed">
             料金・施術内容・ダウンタイムなど、<br className="md:hidden" />
             ご不明な点はカウンセリングにてご確認ください。
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
             <a
               href="https://mpureju.com/reservation"
               target="_blank"
@@ -828,9 +831,15 @@ export default function PricePage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border border-[var(--color-brand-dark)] text-[var(--color-brand-dark)] px-10 py-4 text-sm tracking-widest hover:bg-[var(--color-brand-dark)] hover:text-white transition-colors"
             >
-              LINE相談
+              LINE予約
             </a>
           </div>
+          <Link
+            href="/contact"
+            className="text-xs tracking-wider text-[var(--color-text-secondary)] underline underline-offset-4 hover:text-[var(--color-brand-gold)] transition-colors"
+          >
+            メールでのお問い合わせはこちら
+          </Link>
         </div>
       </section>
     </>

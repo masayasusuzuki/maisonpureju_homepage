@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { PillarTemplate, type PillarConfig } from "@/components/pillar/PillarTemplate";
 
 export const metadata: Metadata = {
-  title: "口元の美容外科",
+  title: "口の整形・唇の整形｜Maison PUREJU 銀座の美容外科",
   description:
     "口角挙上・人中短縮・M字リップなど口元の美容外科施術。形成外科専門医が丁寧にご対応いたします。",
 };
 
 const CONFIG: PillarConfig = {
   slug: "mouth",
-  label: "口元",
+  label: "口の整形・唇の整形",
   labelEn: "Mouth & Lips",
   tagline: "唇の美しさが、表情を変える。\n繊細な口元に、確かな技術を。",
-  heroImage: "/toppage/clinicimage01.jpg",
+  heroImage: "/pillarpage/mouth_hero.jpg",
   concerns: [
     "口角が下がっている",
     "人中が長い",

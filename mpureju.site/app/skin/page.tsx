@@ -12,7 +12,7 @@ const CONFIG: PillarConfig = {
   label: "美容皮膚科",
   labelEn: "Skin Care",
   tagline: "素肌の美しさが、自信を生む。\n最新の医療機器と薬剤で、理想の肌へ。",
-  heroImage: "/toppage/clinicimage01.jpg",
+  heroImage: "/pillarpage/skin_hero.jpg",
   concerns: [
     "毛穴の開き・黒ずみ",
     "シミ・そばかす",
