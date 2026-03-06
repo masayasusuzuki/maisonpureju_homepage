@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 
 const TABS = [
-  { id: "teens",    label: "10・20代", image: "/persona/20s_lady.png" },
-  { id: "thirties", label: "30・40代", image: "/persona/30s_lady.png" },
-  { id: "fifties",  label: "50代以上", image: "/persona/50s_lady.png" },
-  { id: "men",      label: "男性美容", image: "/persona/mens.png"     },
+  { id: "teens",    label: "10・20代", image: "/persona/20s_lady.jpg" },
+  { id: "thirties", label: "30・40代", image: "/persona/30s_lady.jpg" },
+  { id: "fifties",  label: "50代以上", image: "/persona/50s_lady.jpg" },
+  { id: "men",      label: "男性美容", image: "/persona/mens.jpg"     },
 ];
 
 // btnY: ボタン中心 Y (%)  dotX/dotY: 顔上のコネクション点 (%)
@@ -77,35 +77,45 @@ export function FaceMenu() {
           />
         ))}
 
-        {/* SVG ライン + エンドポイント */}
+        {/* SVG ライン（preserveAspectRatio="none" はライン用） */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
           {LEFT_PARTS.map((p) => (
-            <g key={p.name}>
-              <line
-                x1={L_LINE_X} y1={p.btnY}
-                x2={p.dotX}   y2={p.dotY}
-                stroke="rgba(201,169,110,0.7)"
-                strokeWidth="0.25"
-              />
-              <circle cx={p.dotX} cy={p.dotY} r="0.4" fill="rgba(201,169,110,1)" />
-            </g>
+            <line
+              key={p.name}
+              x1={L_LINE_X} y1={p.btnY}
+              x2={p.dotX}   y2={p.dotY}
+              stroke="rgba(201,169,110,0.7)"
+              strokeWidth="0.25"
+            />
           ))}
           {RIGHT_PARTS.map((p) => (
-            <g key={p.name}>
-              <line
-                x1={R_LINE_X} y1={p.btnY}
-                x2={p.dotX}   y2={p.dotY}
-                stroke="rgba(201,169,110,0.7)"
-                strokeWidth="0.25"
-              />
-              <circle cx={p.dotX} cy={p.dotY} r="0.4" fill="rgba(201,169,110,1)" />
-            </g>
+            <line
+              key={p.name}
+              x1={R_LINE_X} y1={p.btnY}
+              x2={p.dotX}   y2={p.dotY}
+              stroke="rgba(201,169,110,0.7)"
+              strokeWidth="0.25"
+            />
           ))}
         </svg>
+
+        {/* ドット（正円）— 絶対配置で個別レンダリング */}
+        {[...LEFT_PARTS, ...RIGHT_PARTS].map((p) => (
+          <div
+            key={p.name}
+            className="absolute w-2 h-2 rounded-full pointer-events-none"
+            style={{
+              left: `${p.dotX}%`,
+              top: `${p.dotY}%`,
+              transform: "translate(-50%, -50%)",
+              backgroundColor: "rgba(201,169,110,1)",
+            }}
+          />
+        ))}
 
         {/* 左ラベル */}
         {LEFT_PARTS.map((p) => (

@@ -68,7 +68,7 @@ function MediaRow({
             rel="noopener noreferrer"
             className="group block"
           >
-            <div className="relative aspect-square overflow-hidden bg-[var(--color-brand-cream)]">
+            <div className={`relative overflow-hidden bg-[var(--color-brand-cream)] ${isYoutube ? "aspect-video" : "aspect-square"}`}>
               {item.thumbnail ? (
                 <Image
                   src={item.thumbnail.url}
@@ -234,9 +234,34 @@ export function MediaSectionPlaceholder() {
             </span>
           </div>
           <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-            {mockYoutube.map((item) => (
+            {/* テスト動画 */}
+            <a
+              href="https://www.youtube.com/watch?v=bdWR5as1VSo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block"
+            >
+              <div className="relative aspect-video overflow-hidden bg-[var(--color-brand-cream)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://img.youtube.com/vi/bdWR5as1VSo/hqdefault.jpg"
+                  alt="YouTube動画"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
+                    <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {/* 残り3枚はプレースホルダー */}
+            {mockYoutube.slice(1).map((item) => (
               <div key={item.id}>
-                <div className="aspect-square bg-[var(--color-brand-cream)] mb-2" />
+                <div className="aspect-video bg-[var(--color-brand-cream)] mb-2" />
                 <div className="h-2 bg-[var(--color-brand-cream)] w-16 mb-1" />
                 <div className="h-2 bg-[var(--color-brand-cream)] w-full mb-0.5" />
                 <div className="h-2 bg-[var(--color-brand-cream)] w-3/4" />

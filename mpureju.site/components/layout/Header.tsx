@@ -4,66 +4,17 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const navCategories = [
-  {
-    label: "口元",
-    href: "/mouth",
-    items: [
-      { label: "口角挙上", href: "/mouth/lip-lift" },
-      { label: "M字リップ", href: "/mouth/m-lip" },
-      { label: "人中短縮", href: "/mouth/philtrum" },
-      { label: "口唇縮小", href: "/mouth/lip-reduction" },
-      { label: "ガミースマイル", href: "/mouth/gummy-smile" },
-      { label: "口元症例一覧", href: "/mouth/case" },
-    ],
-  },
-  {
-    label: "目元",
-    href: "/eye",
-    items: [
-      { label: "二重整形", href: "/eye/double-eyelid" },
-      { label: "眼瞼下垂", href: "/eye/ptosis" },
-      { label: "眉下切開", href: "/eye/brow-lift" },
-      { label: "目の下のたるみ・クマ", href: "/eye/under-eye" },
-      { label: "目頭切開", href: "/eye/epicanthoplasty" },
-      { label: "目元症例一覧", href: "/eye/case" },
-    ],
-  },
-  {
-    label: "鼻",
-    href: "/nose",
-    items: [
-      { label: "プロテーゼ", href: "/nose/implant" },
-      { label: "鼻尖形成", href: "/nose/tip" },
-      { label: "鼻翼縮小", href: "/nose/alar" },
-      { label: "鼻中隔", href: "/nose/septum" },
-      { label: "鼻症例一覧", href: "/nose/case" },
-    ],
-  },
-  {
-    label: "リフトアップ",
-    href: "/lift",
-    items: [
-      { label: "糸リフト", href: "/lift/thread" },
-      { label: "ソフウェーブ", href: "/lift/sofwave" },
-      { label: "HIFU", href: "/lift/hifu" },
-      { label: "リフトアップ症例一覧", href: "/lift/case" },
-    ],
-  },
-  {
-    label: "美容皮膚科",
-    href: "/skin",
-    items: [
-      { label: "ポテンツァ", href: "/skin/potenza" },
-      { label: "注入治療", href: "/skin/injection" },
-      { label: "レーザー治療", href: "/skin/laser" },
-      { label: "皮膚科症例一覧", href: "/skin/case" },
-    ],
-  },
+const menuItems = [
+  { label: "施術一覧", href: "/treatment" },
+  { label: "口の整形・唇の整形", href: "/mouth" },
+  { label: "目・目元の整形", href: "/eye" },
+  { label: "鼻の整形", href: "/nose" },
+  { label: "糸の施術・リフトアップ", href: "/lift" },
+  { label: "美容皮膚科", href: "/skin" },
 ];
 
 export function Header() {
-  const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -105,40 +56,38 @@ export function Header() {
 
           {/* PC Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navCategories.map((cat) => (
-              <div
-                key={cat.label}
-                className="relative"
-                onMouseEnter={() => setOpenCategory(cat.label)}
-                onMouseLeave={() => setOpenCategory(null)}
+            {/* メニュー▼ dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setMenuOpen(true)}
+              onMouseLeave={() => setMenuOpen(false)}
+            >
+              <button
+                className={`flex items-center gap-1 px-3 py-2 text-sm transition-colors duration-300 ${
+                  isTransparent
+                    ? "text-white/90 hover:text-white"
+                    : "text-[var(--color-text-primary)] hover:text-[var(--color-brand-gold)]"
+                }`}
               >
-                <Link
-                  href={cat.href}
-                  className={`px-3 py-2 text-sm transition-colors duration-300 ${
-                    isTransparent
-                      ? "text-white/90 hover:text-white"
-                      : "text-[var(--color-text-primary)] hover:text-[var(--color-brand-gold)]"
-                  }`}
-                >
-                  {cat.label}
-                </Link>
-
-                {/* Mega menu dropdown - 常に白背景 */}
-                {openCategory === cat.label && (
-                  <div className="absolute top-full left-0 mt-0 w-48 bg-white border border-[var(--color-brand-cream)] shadow-lg py-2">
-                    {cat.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-brand-cream)] hover:text-[var(--color-brand-dark)] transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                メニュー
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {menuOpen && (
+                <div className="absolute top-full left-0 mt-0 w-52 bg-white border border-[var(--color-brand-cream)] shadow-lg py-2">
+                  {menuItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-4 py-2.5 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-brand-cream)] hover:text-[var(--color-brand-dark)] transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <Link
               href="/case"
@@ -169,6 +118,16 @@ export function Header() {
               }`}
             >
               院長紹介
+            </Link>
+            <Link
+              href="/recruit"
+              className={`px-3 py-2 text-sm transition-colors duration-300 ${
+                isTransparent
+                  ? "text-white/90 hover:text-white"
+                  : "text-[var(--color-text-primary)] hover:text-[var(--color-brand-gold)]"
+              }`}
+            >
+              採用情報
             </Link>
 
             {/* 問い合わせ + 電話 */}
@@ -252,26 +211,15 @@ export function Header() {
       {/* Mobile menu drawer - 常に白背景 */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-[var(--color-brand-cream)] max-h-[80vh] overflow-y-auto">
-          {navCategories.map((cat) => (
-            <div key={cat.label}>
-              <Link
-                href={cat.href}
-                className="block px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {cat.label}
-              </Link>
-              {cat.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block px-10 py-2.5 text-sm text-[var(--color-text-secondary)] border-b border-[var(--color-brand-cream)]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
           ))}
           <Link
             href="/case"
@@ -293,6 +241,13 @@ export function Header() {
             onClick={() => setMobileMenuOpen(false)}
           >
             院長紹介
+          </Link>
+          <Link
+            href="/recruit"
+            className="block px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] border-b border-[var(--color-brand-cream)]"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            採用情報
           </Link>
           <Link
             href="/contact"
