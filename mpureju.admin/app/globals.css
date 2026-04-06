@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-dark: #1a1408;
+  --color-brand-brown: #3d2b1a;
+  --color-brand-gold: #c9a96e;
+  --color-brand-cream: #f5f0e8;
+  --color-brand-white: #fdfcfa;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
